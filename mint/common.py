@@ -3,14 +3,10 @@ from Crypto.Cipher import AES
 import binascii
 import base64, hashlib
 import os
-from elasticsearch import Elasticsearch, helpers
 from settings import  REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD
-import psycopg2
-import psycopg2.extensions
 import redis
 import time
 # from selenium import webdriver
-from pymongo import MongoClient as mc
 
 
 from PIL import Image

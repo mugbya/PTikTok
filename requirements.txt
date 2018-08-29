@@ -2,3 +2,5 @@ sanic==0.7.0
 lxml
 redis==2.10.6
 pycrypto==2.6.1
+pillow==5.2.0
+

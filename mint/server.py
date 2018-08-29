@@ -28,7 +28,7 @@ async def share_uri(request):
         return json({'code': -1, 'message': '视频链接提取失败'})
     # 将视频链接存到redis后续在处理
 
-    redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, uri)
+    redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, new_uri)
 
     return json({'code': 0, 'message': None, 'rsp': new_uri})
 
