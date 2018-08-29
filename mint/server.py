@@ -1,7 +1,9 @@
 from sanic import Sanic
 from sanic.response import json
-from mint import settings
+import settings
 import requests
+import redis
+from common import redis_client
 from lxml import html
 app = Sanic()
 
@@ -15,18 +17,20 @@ async def index(request):
 async def share_uri(request):
     uri = request.json.get('uri', None)
     if not uri:
-        return json('hi 请输入短视频链接')
+        return json({'code': -1, 'message': '未收到链接地址'})
 
     # 加载该资源获取页面
     page = requests.get(uri)
     tree = html.fromstring(page.text)
 
     new_uri = tree.xpath('//meta[@property="og:video:url"]/@content')[0]
+    if not new_uri:
+        return json({'code': -1, 'message': '视频链接提取失败'})
+    # 将视频链接存到redis后续在处理
 
-    # 加载new_uri, 获取真正视频名称
-    res = request.get(new_uri)
+    redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, uri)
 
-    return json(res.url)
+    return json({'code': 0, 'message': None, 'rsp': new_uri})
 
 
 if __name__ == '__main__':
