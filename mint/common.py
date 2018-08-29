@@ -3,7 +3,6 @@ from Crypto.Cipher import AES
 import binascii
 import base64, hashlib
 import os
-import pandas as pd
 from elasticsearch import Elasticsearch, helpers
 from settings import  REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD
 import psycopg2
@@ -45,15 +44,6 @@ def encrypt(message):
 
 def hash(str):
     return hashlib.sha1(str.encode('utf-8')).hexdigest()
-
-
-def get_ldf_reader(parameters):
-    return pd.read_csv(parameters.etlFile, quotechar='"', sep="|", keep_default_na=False, iterator=True,
-                       chunksize=CHUNKSIZE, encoding='utf-8')
-
-
-def write_ldf_reader(df, file_name):
-    return df.to_csv("%s" % file_name, mode='a', sep="|", encoding='utf-8', header=False, index=False)
 
 
 
