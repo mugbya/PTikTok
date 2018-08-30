@@ -30,6 +30,7 @@ async def share_uri(request):
     if not video_url:
         return json({'code': -1, 'message': '视频链接提取失败'})
 
+    video_url = video_url.replace('playwm', 'play')
     # 将视频链接存到redis后续在处理,
     redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, video_url)
 
