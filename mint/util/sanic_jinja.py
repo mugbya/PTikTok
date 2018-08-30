@@ -1,6 +1,6 @@
 from sanic.response import html
 from jinja2 import Environment, PackageLoader
-from settings import PACKAGE_NAME, TEMPLATES
+from mint.settings import PACKAGE_NAME, TEMPLATES
 
 
 class SanicJinja2:

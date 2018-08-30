@@ -1,11 +1,11 @@
 from sanic import Sanic
 from sanic.response import json
-import settings
+from mint import settings
 import requests
-import redis
-from common import redis_client
-from util.sanic_jinja import render
+from mint.common import redis_client
+from mint.util.sanic_jinja import render
 from lxml import html
+
 app = Sanic()
 
 
@@ -41,7 +41,6 @@ async def play(request):
     sign = redis_client.hget('mint', key)
 
     return render('index.html', request, sign=sign)
-
 
 
 if __name__ == '__main__':

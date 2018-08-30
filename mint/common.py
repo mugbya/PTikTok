@@ -2,7 +2,7 @@
 from Crypto.Cipher import AES
 import binascii
 import base64, hashlib
-from settings import REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD
+from mint.settings import REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD
 import redis
 
 
