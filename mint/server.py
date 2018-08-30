@@ -36,7 +36,7 @@ async def share_uri(request):
 
 @app.get('/play')
 async def play(request):
-    key = request.json.get('sign', None)
+    key = request.query_string
 
     sign = redis_client.hget('mint', key)
 

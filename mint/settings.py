@@ -2,8 +2,7 @@ import os
 
 PACKAGE_NAME = os.path.basename(os.getcwd())
 
-print(os.getcwd())
-print(PACKAGE_NAME)
+
 STATIC_URL = 'webContent/static'
 TEMPLATES = "webContent/templates"
 
