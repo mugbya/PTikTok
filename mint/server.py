@@ -42,7 +42,7 @@ async def share_uri(request):
 async def play(request):
     key = request.query_string
 
-    sign = redis_client.hget('mint', key)
+    sign = str(redis_client.hget('mint', key))
     return render('index.html', request, sign=sign)
 
 
