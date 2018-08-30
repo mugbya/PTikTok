@@ -7,6 +7,8 @@ from mint.util.sanic_jinja import render
 from lxml import html
 
 app = Sanic()
+app.static('/static', settings.STATIC_URL)
+app.static('/media', settings.MEDIA_URL)
 
 
 @app.route('/')
@@ -24,14 +26,16 @@ async def share_uri(request):
     page = requests.get(uri)
     tree = html.fromstring(page.text)
 
-    new_uri = tree.xpath('//meta[@property="og:video:url"]/@content')[0]
-    if not new_uri:
+    video_url = tree.xpath('//meta[@property="og:video:url"]/@content')[0]
+    if not video_url:
         return json({'code': -1, 'message': '视频链接提取失败'})
-    # 将视频链接存到redis后续在处理
 
-    redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, new_uri)
+    # 将视频链接存到redis后续在处理,
+    redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, video_url)
 
-    return json({'code': 0, 'message': None, 'rsp': new_uri})
+    # 返回一个能读取视频的链接
+    new_url = request.host + '/play/?' + video_url
+    return json({'code': 0, 'message': None, 'rsp': new_url})
 
 
 @app.get('/play')
@@ -39,7 +43,6 @@ async def play(request):
     key = request.query_string
 
     sign = redis_client.hget('mint', key)
-
     return render('index.html', request, sign=sign)
 
 

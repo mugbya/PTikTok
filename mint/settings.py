@@ -4,6 +4,8 @@ PACKAGE_NAME = os.path.basename(os.getcwd())
 
 
 STATIC_URL = 'webContent/static'
+MEDIA_URL = '/root/PTokTikTask/crawler'
+# MEDIA_URL = '/Users/mugbya'
 TEMPLATES = "webContent/templates"
 
 REDIS_HOST = '127.0.0.1'
