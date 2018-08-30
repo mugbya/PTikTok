@@ -2,6 +2,9 @@ import os
 
 PACKAGE_NAME = os.path.basename(os.getcwd())
 
+STATIC_URL = 'webContent/static'
+TEMPLATES = "webContent/templates"
+
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = '6379'
 REDIS_DB = '0'

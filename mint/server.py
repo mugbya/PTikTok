@@ -4,6 +4,7 @@ import settings
 import requests
 import redis
 from common import redis_client
+from util.sanic_jinja import render
 from lxml import html
 app = Sanic()
 
@@ -31,6 +32,16 @@ async def share_uri(request):
     redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, new_uri)
 
     return json({'code': 0, 'message': None, 'rsp': new_uri})
+
+
+@app.get('/play')
+async def play(request):
+    key = request.json.get('sign', None)
+
+    sign = redis_client.hget('mint', key)
+
+    return render('index.html', request, sign=sign)
+
 
 
 if __name__ == '__main__':

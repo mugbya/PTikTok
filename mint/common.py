@@ -2,15 +2,9 @@
 from Crypto.Cipher import AES
 import binascii
 import base64, hashlib
-import os
-from settings import  REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD
+from settings import REDIS_HOST, REDIS_PORT, REDIS_DB, REDIS_PASSWORD
 import redis
-import time
-# from selenium import webdriver
 
-
-from PIL import Image
-import urllib.request
 
 AES_KEY = b'1qazXSW@3edcVFR$'
 AES_IV = b'0okmNJI(8uhbVGY&'
