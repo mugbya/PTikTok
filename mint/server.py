@@ -32,11 +32,11 @@ async def share_uri(request):
 
     video_url = video_url.replace('playwm', 'play')
     # 将视频链接存到redis后续在处理,
-    redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, video_url)
+    # redis_client.lpush("%s:start_urls" % settings.SPIDER_NAME, video_url)
 
     # 返回一个能读取视频的链接
-    new_url = request.host + '/play/?' + video_url
-    return json({'code': 0, 'message': None, 'rsp': new_url})
+    # new_url = request.host + '/play/?' + video_url
+    return json({'code': 0, 'message': None, 'rsp': video_url})
 
 
 @app.get('/play')
