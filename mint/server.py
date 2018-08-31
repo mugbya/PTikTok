@@ -17,7 +17,9 @@ async def index(request):
 async def share_uri(request):
     uri = request.json.get('uri', None)
     if not uri:
-        return json({'code': -1, 'message': '未收到链接地址'})
+        uri = request.data.get('uri', None)
+        if not uri:
+            return json({'code': -1, 'message': '未收到链接地址'})
 
     # 加载该资源获取页面
     page = requests.get(uri)
